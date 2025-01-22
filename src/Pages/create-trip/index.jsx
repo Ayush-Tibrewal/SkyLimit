@@ -6,10 +6,31 @@ import { SelectBudgetOptions, SelectNoOfPersons, PROMPT } from '@/constants/opti
 import { Button } from '@/components/ui/button';
 import { toast } from "sonner";
 import { chatSession } from '@/services/Aimodel';
+import { FcGoogle } from "react-icons/fc";
+import { useGoogleLogin } from '@react-oauth/google';
+import { doc, setDoc } from "firebase/firestore";
+import { db } from '@/services/firebaseconfig';
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
+
+
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog"
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+
 
 function CreateTrip() {
     const [place, setPlace] = useState();
     const [form, setFormData] = useState({});
+    const [open, setOpen] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
 
     const handleChange = (name, value) => {
         setFormData({
@@ -22,26 +43,72 @@ function CreateTrip() {
         console.log(form);
     }, [form]);
 
-    const checkPeople = async () => {
-        if (!form?.budget || !form?.traveler || !form?.location|| !form?.noofdays) {
-            toast("Please fill all the details");
-        } else if (form?.noofdays > 8) {
-            toast("Please fill lesser number of days");
-        } else {
-            const FINAL_PROMPT = PROMPT
-                .replace('{location}', form?.location.label)
-                .replace('{noOfDays}', form?.noofdays)
-                .replace('{Budget}', form?.budget)
-                .replace('{traveler}', form?.traveler);
-            console.log(FINAL_PROMPT);
-            try {
-                const result = await chatSession.sendMessage(FINAL_PROMPT);
-                console.log(JSON.parse(result.response.text()));
-            } catch (error) {
-                console.error("Error in fetching data:", error);
-            }
+    const login = useGoogleLogin({
+        onSuccess: (tokenResponse) => {
+            GetUserProfile(tokenResponse);
         }
+
+
+    });
+
+    const GetUserProfile = async (tokenInfo) => {
+        const response = await axios.get('https://www.googleapis.com/oauth2/v1/userinfo', {
+            headers: {
+                Authorization: `Bearer ${tokenInfo?.access_token}`,
+                Accept: 'application/json'
+            }
+        });
+        console.log(response);
+        localStorage.setItem('user', JSON.stringify(response.data));
+        setOpen(false);
+        checkPeople();
+    }
+
+    // main function
+
+    const checkPeople = async () => {
+        const user = localStorage.getItem('user');
+        if (!user) {
+            setOpen(true);
+        }
+        // if (!form?.budget || !form?.traveler || !form?.location || !form?.noofdays) {
+        //     toast("Please fill all the details");
+        // } else if (form?.noofdays > 8) {
+        //     toast("Please fill lesser number of days");
+        // } if  {
+        setLoading(true)
+        const FINAL_PROMPT = PROMPT
+            .replace('{location}', form?.location.label)
+            .replace('{noOfDays}', form?.noofdays)
+            .replace('{Budget}', form?.budget)
+            .replace('{traveler}', form?.Travler);
+        console.log(FINAL_PROMPT);
+
+        const result = await chatSession.sendMessage(FINAL_PROMPT);
+        console.log(JSON.parse(result?.response?.text()));
+        setLoading(false);
+        SaveAitrip(result?.response?.text())
+        // }
+
     };
+
+    const SaveAitrip = async (Tripdata) => {
+        setLoading(true);
+        const docId = Date.now().toString();
+        const user = JSON.parse(localStorage.getItem('user'))
+        await setDoc(doc(db, "AITrips", docId), {
+            userSelection: form,
+            Tripdata: JSON.parse(Tripdata),
+            userEmail: user?.email,
+            id: docId
+        });
+        console.log("datset is added")
+        setLoading(false);
+        // redirect to the new screen
+        navigate(`/view-trip/${docId}`)
+
+
+    }
 
     return (
         <div className='sm:px-10 md:px-32 lg:px-56 xl:px-10 px-5 mt-10'>
@@ -101,9 +168,29 @@ function CreateTrip() {
                     </div>
                 </div>
                 <div className='mt-10 flex justify-center items-center'>
-                    <Button onClick={checkPeople}>Generate My Trip</Button>
+                    <Button disabled={loading} onClick={checkPeople}>
+                        {loading ? <AiOutlineLoading3Quarters className='w-7 h-7 animate-spin' />
+                            : 'Generate My Trip'}</Button>
                 </div>
             </div>
+
+            <Dialog open={open}>
+                {/* <DialogTrigger>Open</DialogTrigger> */}
+                <DialogContent>
+                    <DialogHeader>
+                        <DialogDescription>
+                            <img src="/logo2.svg" />
+                            <h2 className='font-bold mt-7'>Sign in with Google</h2>
+                            <p>Sign in with google Authentication</p>
+                            <Button
+                                onClick={login} className=' w-full mt-3 flex gap-6 item-center' varient="outline">
+                                <FcGoogle className='w-7 h-7' /> Sign in with Google
+                            </Button>
+                        </DialogDescription>
+                    </DialogHeader>
+                </DialogContent>
+            </Dialog>
+
         </div>
     );
 }
