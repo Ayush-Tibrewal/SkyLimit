@@ -4,6 +4,8 @@ import { doc ,getDoc  } from "firebase/firestore";
 import { db } from '@/services/firebaseconfig';
 import Information from './components/information';
 import Hotels from './components/Hotels';
+import PlacesToVisit from './components/PlacesToVisit';
+import Footer from './components/Footer';
 function Viewtrip() {
   const { tripId } = useParams();
   const [trip , setTrip] = useState([])
@@ -26,12 +28,12 @@ useEffect(()=>{
       <Information trip={trip}></Information>
 
       {/* recommended hote */}
-      <Hotels></Hotels>
+      <Hotels trip={trip}></Hotels>
 
       {/* daily plan */}
-
+      <PlacesToVisit trip={trip}></PlacesToVisit>
       {/* footer */}
-      
+      <Footer trip={trip}></Footer>
     </div>
   )
 }
