@@ -6,9 +6,14 @@ import Information from './components/information';
 import Hotels from './components/Hotels';
 import PlacesToVisit from './components/PlacesToVisit';
 import Footer from './components/Footer';
+import { toast } from 'sonner';
+
+
+
 function Viewtrip() {
   const { tripId } = useParams();
   const [trip , setTrip] = useState([])
+
 
 useEffect(()=>{
   getdata();
@@ -20,6 +25,8 @@ useEffect(()=>{
     if(response.exists()){
       console.log(response.data());
       setTrip(response.data());
+    }else{
+      toast("your data not exist")
     }}
 
   return (

@@ -16,6 +16,7 @@ function Information({trip}) {
     textQuery:trip?.userSelection?.location?.label
   }
 
+  // photo api
   const GetPlacePhoto= async ()=>{
     const result = await GetPlaceDetails(data).then(resp=>{
       console.log(resp.data.places[0].photos[0].name)
@@ -24,6 +25,8 @@ function Information({trip}) {
       setPhotoUrl(PhotoUrl)
     })
   }
+
+//information page
   return (
     <div >
         <img src={photoUrl?photoUrl:'/placeholder.jpg'}  className='h-[340px] w-full object-cover rounded ' />
