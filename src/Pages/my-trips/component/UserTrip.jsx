@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { PHOTO_REF_URL } from '@/services/GlobalApi';
 import { GetPlaceDetails } from '@/services/GlobalApi'
 import { Link } from 'react-router-dom';
+import { SkeletonCard } from '@/Pages/view-trip/[tripId]/components/skeleton';
 
 
 
@@ -28,16 +29,27 @@ function UserTripCard({ trip }) {
     }
 
     return (
-        <Link to={'/view-trip/'+trip.id}>
-        <div className='hover:scale-105 transition-all  '>
-            <img src={photoUrl?photoUrl: '/placeholder.jpg'} />
-            <div>
-                <h2 className='font-bold text-lg'>{trip.userSelection.location.label}</h2>
-                <h2 className='text-gray-500 text-sm'>{trip.userSelection.noofdays} Days {trip.userSelection.budget}</h2>
+        <Link to={'/view-trip/' + trip.id}>
+            <div className='hover:scale-105 transition-all  '>
+                {photoUrl ? (
+                    <img
+                        src={photoUrl}
+                        className="h-[340px] w-full object-cover rounded"
+                        alt="Trip"
+                    />
+                ) : (
+                    <SkeletonCard />
+                )}
+                <div>
+                    <h2 className='font-bold text-lg'>{trip.userSelection.location.label}</h2>
+                    <h2 className='text-gray-500 text-sm'>{trip.userSelection.noofdays} Days {trip.userSelection.budget}</h2>
+                </div>
             </div>
-        </div>
         </Link>
     )
 }
 
 export default UserTripCard
+
+
+

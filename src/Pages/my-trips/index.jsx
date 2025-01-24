@@ -25,7 +25,7 @@ function MyTrip() {
             if (snapshot.empty) {
                 console.warn("No documents found for this user.");
             } else {
-                const fetchedTrips = snapshot.docs.map(doc => doc.data());
+                const fetchedTrips =  snapshot.docs.map(doc => doc.data());
                 setTrips(fetchedTrips);
             }
         } catch (error) {
@@ -43,7 +43,8 @@ function MyTrip() {
                         <UserTripCard key={index} trip={tripData} />
                     ))
                 ) : (
-                    <p>No trips found.</p>
+                    // no trips found add krna hai ismein 
+                    <p></p>
                 )}
             </div>
         </div>

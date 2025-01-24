@@ -4,6 +4,7 @@ import { IoIosSend } from "react-icons/io";
 import { Button } from '@/components/ui/button';
 import { GetPlaceDetails } from '@/services/GlobalApi';
 import { PHOTO_REF_URL } from '@/services/GlobalApi';
+import { SkeletonCard } from './skeleton';
 
 function Information({trip}) {
 
@@ -26,10 +27,18 @@ function Information({trip}) {
     })
   }
 
-//information page
   return (
-    <div >
-        <img src={photoUrl?photoUrl:'/placeholder.jpg'}  className='h-[340px] w-full object-cover rounded ' />
+    <div>
+    {photoUrl ? (
+      <img 
+        src={photoUrl} 
+        className="h-[340px] w-full object-cover rounded"
+        alt="Trip" 
+      />
+    ) : (
+      <SkeletonCard />
+    )}
+
 
         <div className='flex justify-between items-center'>
           <div className='my-5 flex flex-col gap-2'>
