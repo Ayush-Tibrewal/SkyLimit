@@ -34,7 +34,8 @@ function MyTrip() {
     };
 
     return (
-        <div className="sm:px-10 md:px-32 lg:px-56 xl:px-72 mt-10">
+        <div>
+        <div className="sm:px-10 md:px-32 lg:px-56 xl:px-72">
             <h2 className="font-bold text-3xl">Trips</h2>
             <div className="grid grid-cols-2 md:grid-cols-3 object-cover rounded-xl gap-5 mt-3" >
              
@@ -46,6 +47,8 @@ function MyTrip() {
                     // no trips found add krna hai ismein 
                     <p></p>
                 )}
+
+            </div>
             </div>
         </div>
     );

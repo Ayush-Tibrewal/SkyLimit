@@ -1,7 +1,7 @@
 import React from 'react';
-import { Mail,} from 'lucide-react';
+import { Mail} from 'lucide-react';
 
-const Fotter = ()=> {
+const  Fotter = ()=> {
   return (
     <footer className="bg-gray-900 text-gray-300">
     <div className="max-w-7xl mx-auto px-4 py-6">
