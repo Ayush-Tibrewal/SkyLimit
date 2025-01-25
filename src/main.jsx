@@ -10,6 +10,7 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
 import Viewtrip from './Pages/view-trip/[tripId]'
 import Mytrip from './Pages/my-trips'
 import Spot from './Pages/perfect-spot'
+import Whatwedo from './components/custom/whatwedo'
 
 
 
