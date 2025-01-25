@@ -19,7 +19,9 @@ import { useGoogleLogin } from '@react-oauth/google';
 
 import React, { useState,useRef } from 'react'
 import { Plane, Menu, X } from 'lucide-react';
+import { Toaster,toast } from "sonner"
 import { Link } from 'react-router-dom';
+
 // import { whatWeDo } from './whatwedo';
 
 
@@ -92,10 +94,10 @@ function Header() {
               Features
             </button>
             <button
-              onClick={() => scrollToSection('#destinations')}
+              onClick={() => toast("We are building Bloging-Community very soon!!!")}
               className="text-gray-600 hover:text-[#2A9D8F] transition-colors"
             >
-              Destinations
+              Community
             </button>
             <a href='/popular-destinations' className='ml-0 flex items-center'>
               <button
@@ -149,7 +151,12 @@ function Header() {
               <DialogContent>
                 <DialogHeader>
                   <DialogDescription>
-                    <img src="/logo2.svg" />
+                    
+                    <div className='flex'>
+                  <Plane className="h-8 w-8 text-[#2A9D8F]" />
+                  <span className="ml-2 text-xl font-bold text-gray-800 cursor-pointer">TravelAI</span>
+                  </div>
+
                     <h2 className='font-bold mt-7'>Sign in with Google</h2>
                     <p>Sign in with google Authentication</p>
                     <Button

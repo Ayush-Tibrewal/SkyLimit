@@ -45,16 +45,6 @@ function Popular() {
 
         },
         {
-            title: "Amalfi Coast, Italy",
-            image: "https://images.unsplash.com/photo-1533165955937-d6d207c15f95?auto=format&fit=crop&w=800&q=80",
-            description: "Dramatic coastline and charming villages",
-            rating: 4.7,
-            price: "From $249/night",
-            attractions: ["Coastal Drive", "Beaches", "Cuisine"],
-            route: "/view-trip/1737727532749"
-
-        },
-        {
             title: "Machu Picchu, Peru",
             image: "https://images.unsplash.com/photo-1587595431973-160d0d94add1?auto=format&fit=crop&w=800&q=80",
             description: "Ancient Incan citadel in the clouds",

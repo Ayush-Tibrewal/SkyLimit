@@ -5,6 +5,7 @@ import Slider from './slider';
 import Whatwedo from './whatwedo';
 import Fotter from './footer';
 import { Sparkles } from 'lucide-react';
+import NewsletterSection from './newsletter';
 
 function Landing() {
   return (
@@ -48,8 +49,10 @@ function Landing() {
         <Whatwedo />
         </div>
           <Slider />
+          <NewsletterSection/>
       </div>
       <Fotter />
+
     </div>
   );
 }

@@ -44,8 +44,7 @@ function MyTrip() {
                         <UserTripCard key={index} trip={tripData} />
                     ))
                 ) : (
-                    // no trips found add krna hai ismein 
-                    <p></p>
+                    <p>Add Trips</p>
                 )}
 
             </div>
