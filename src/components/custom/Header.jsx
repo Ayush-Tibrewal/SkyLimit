@@ -17,8 +17,10 @@ import {
 } from "@/components/ui/dialog"
 import { useGoogleLogin } from '@react-oauth/google';
 
-import React, { useState } from 'react'
+import React, { useState,useRef } from 'react'
 import { Plane, Menu, X } from 'lucide-react';
+import { Link } from 'react-router-dom';
+// import { whatWeDo } from './whatwedo';
 
 
 
@@ -27,9 +29,24 @@ import { Plane, Menu, X } from 'lucide-react';
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  // const scrollToSection = (ref) => {
+  //   setIsMenuOpen(false);
+  // };
+
   const scrollToSection = (ref) => {
-    setIsMenuOpen(false);
+    const element = document.querySelector(ref); // Find the target section by its ID or class
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' }); // Smooth scroll to the section
+    }
   };
+  
+  // Create a ref for the target section
+
+  // const scrollToSection = (ref) => {
+  //   if (ref.current) {
+  //     ref.current.scrollIntoView({ behavior: 'smooth' }); // Scroll smoothly to the section
+  //   }
+  // };
 
   //sign in logic 
   const [open, setOpen] = useState(false);
@@ -56,8 +73,8 @@ function Header() {
 
 
   return (
-    <nav className="fixed w-full bg-white shadow-md z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <nav className="sticky top-0 w-full bg-white shadow-md z-50">
+      <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
 
           <div className="flex items-center">
@@ -69,24 +86,24 @@ function Header() {
           {/* Desktop Navigation */}
           <div className="hidden md:flex space-x-8">
             <button
-              onClick={() => scrollToSection('features')}
+              onClick={() => scrollToSection('#whatWeDo')}
               className="text-gray-600 hover:text-[#2A9D8F] transition-colors"
             >
               Features
             </button>
             <button
-              onClick={() => scrollToSection('destinations')}
+              onClick={() => scrollToSection('#destinations')}
               className="text-gray-600 hover:text-[#2A9D8F] transition-colors"
             >
               Destinations
             </button>
-            <a href='/popular-destinations'>
-            <button
-                className="text-gray-600 hover:text-[#2A9D8F] transition-colors  item-center"
-              >
-                Popular-Destinations
-              </button>
-              </a>
+            <a href='/popular-destinations' className='ml-0 flex items-center'>
+              <button
+                  className="text-gray-600 hover:text-[#2A9D8F] transition-colors"
+                  >
+                  Popular-Destinations
+                </button>
+            </a>
             {/* <button
               onClick={() => scrollToSection('testimonials')}
               className="text-gray-600 hover:text-[#2A9D8F] transition-colors"
@@ -95,7 +112,7 @@ function Header() {
             </button> */}
             {/* code starts */}
             <div>
-        {user ? <div className='flex items-center  '>
+        {user ? <div className='flex items-center space-x-8'>
           {/* saved trips */} 
           <a href='/my-trip'>
           <button
@@ -108,7 +125,7 @@ function Header() {
               
           {/* button hai ye creat trip wala  */}
           <a href='/create-trip'>
-          <button className="bg-[#2A9D8F] text-white px-4 py-2 rounded-full hover:bg-[#248277] transition-colors">
+          <button className="bg-[#2A9D8F] text-white px-4 py-2 rounded-full hover:bg-[#248277] transition-colors hover:scale-105">
             + Create Trips
             </button>
           </a>
@@ -144,7 +161,7 @@ function Header() {
               </DialogContent>
             </Dialog>
           </div>
-        }
+          }
       </div>
     </div>
             {/* code end */}
@@ -183,6 +200,7 @@ function Header() {
 }
 
 export default Header
+
 
 
 // const [open, setOpen] = useState(false);

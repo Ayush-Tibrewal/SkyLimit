@@ -40,8 +40,8 @@ const Slider = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gray-900 flex items-center justify-center">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+        <div id='destinations' className="min-h-screen bg-gray-900 flex items-center justify-center">
+            <div className="max-w-7xl px-4 sm:px-6 lg:px-8 w-full">
                 <div className="relative">
                     {/* Slider container */}
                     <div className="overflow-hidden rounded-2xl">

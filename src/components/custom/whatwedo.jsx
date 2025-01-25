@@ -1,7 +1,9 @@
 import React from 'react';
 import { Globe2, Clock, Map } from 'lucide-react';
+import { useRef } from 'react';
 
 const Whatwedo = () => {
+    // const whatWeDo = useRef();
     const features = [
         {
             icon: <Globe2 className="h-8 w-8 text-[#2A9D8F]" />,
@@ -21,7 +23,7 @@ const Whatwedo = () => {
     ];
 
     return (
-        <div id="support-system" className="min-h-screen bg-white">
+        <div id='whatWeDo' className=" bg-white">
             <div className="py-20 bg-white">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <h2 className="text-3xl font-bold text-center mb-12 text-gray-800">
@@ -51,3 +53,4 @@ const Whatwedo = () => {
 }
 
 export default Whatwedo;
+// export const whatWeDo = useRef({});

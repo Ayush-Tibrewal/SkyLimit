@@ -112,7 +112,7 @@ function CreateTrip() {
     }
 
     return (
-        <div className='sm:px-10 md:px-32 lg:px-56 xl:px-10 px-5 '>
+        <div className='sm:px-10 md:px-32 lg:px-56 xl:px-10 px-5 mt-10'>
             <h2 className='text-bold text-3xl'>Tell me your travel preference</h2>
             <p className='mt-3 text-gray-500 text-xl'>Just tell me your basic information and travel preference</p>
 

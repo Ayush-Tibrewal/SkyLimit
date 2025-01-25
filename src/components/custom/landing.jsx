@@ -4,13 +4,32 @@ import { Link } from 'react-router-dom';
 import Slider from './slider';
 import Whatwedo from './whatwedo';
 import Fotter from './footer';
+import { Sparkles } from 'lucide-react';
 
 function Landing() {
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col">
       {/* Content Area */}
       <div className="flex-grow">
-        <div className="flex flex-col items-center mx-56 gap-9 text-center">
+      <div className="pt-32 pb-20 bg-gradient-to-b from-gray-50 to-white">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6">
+            <span className="text-[#2A9D8F]">Discover Your Perfect Journey </span>
+            <span className="inline-flex items-center">
+              with AI Magic <Sparkles className="ml-2 h-8 w-8 text-yellow-400 animate-pulse" />
+            </span>
+          </h1>
+          <p className="text-xl sm:text-2xl mb-8 text-gray-600">
+            Experience travel planning reimagined through the power of artificial intelligence
+          </p>
+          <Link to={'/create-trip'}>
+          <button className="bg-[#2A9D8F] hover:bg-[#248277] text-white font-bold py-4 px-8 rounded-full text-lg transition-all transform hover:scale-105 hover:shadow-lg">
+            Begin Your Adventure
+          </button>
+          </Link>
+        </div>
+      </div>
+        {/* <div className="flex flex-col items-center mx-56 gap-9 text-center">
           <h1 className="font-bold text-[50px] mt-16">
             <span className="text-[#f56551]">
               Plan your perfect journey with AI-powered:
@@ -24,11 +43,11 @@ function Landing() {
           <Link to={'/create-trip'}>
             <Button>Let's start your journey</Button>
           </Link>
-        </div>
-        <div className="mt-20">
-          <Slider />
-        </div>
+        </div> */}
+        <div className="mt-10">
         <Whatwedo />
+        </div>
+          <Slider />
       </div>
       <Fotter />
     </div>
