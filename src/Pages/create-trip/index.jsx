@@ -11,6 +11,7 @@ import { useGoogleLogin } from '@react-oauth/google';
 import { doc, setDoc } from "firebase/firestore";
 import { db } from '@/services/firebaseconfig';
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { Compass } from 'lucide-react';
 
 
 import {
@@ -111,14 +112,33 @@ function CreateTrip() {
 
     }
 
-    return (
-        <div className='sm:px-10 md:px-32 lg:px-56 xl:px-10 px-5 mt-10'>
-            <h2 className='text-bold text-3xl'>Tell me your travel preference</h2>
-            <p className='mt-3 text-gray-500 text-xl'>Just tell me your basic information and travel preference</p>
+    useEffect(() => {
+        if (loading) {
+            toast("This usually takes 15-20 seconds.");
+        }
+    }, [loading]);
 
-            <div className="mt-20 flex flex-col gap-9">
+    return (
+        <div className='sm:px-10 md:px-32 lg:px-56 xl:px-10 px-5 py-5 bg-[#dbfaf7]'>
+                    <div className="text-center mt-5 mb-16">
+                        <div className="flex items-center justify-center mb-6">
+                            <Compass className="w-12 h-12 text-[#2A9D8F]" />
+                        </div>
+                        <h1 className="text-4xl font-bold text-gray-900 mb-4">
+                            Plan Your Perfect Journey
+                        </h1>
+                        <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                            Tell us your travel preferences and let us create a personalized itinerary just for you.
+                        </p>
+                    </div>
+            {/* <h2 className='text-bold text-3xl'>Tell me your travel preference</h2>
+            <p className='mt-3 text-gray-500 text-xl'>Just tell me your basic information and travel preference</p> */}
+
+            <div className='bg-white mx-20 my-20 border rounded-2xl'>      
+            <div className="mt-10 mb-10 flex flex-col gap-9">
                 <div>
-                    <h2 className='mt-10 text-xl font-medium'>What is your destination?</h2>
+                    <h2 className='text-2xl font-semibold text-gray-900 mx-12'>What is your Destination?</h2>
+                    <div className='mx-12 mt-2'>
                     <GooglePlacesAutocomplete
                         apiKey={import.meta.env.VITE_GOOGLE_PLACE_API_KEY}
                         selectProps={{
@@ -127,25 +147,33 @@ function CreateTrip() {
                                 setPlace(value);
                                 handleChange('location', value);
                             }
-                        }}
-                    />
+                        }}           
+                        />
+                    </div>
                 </div>
                 <div>
-                    <h2 className='mt-10 text-xl font-medium'>Number of days you want to travel?</h2>
+                    <h2 className='mt-6 text-2xl font-semibold text-gray-900 mx-12'>Number of Days you want to Travel?</h2>
+                    <div className='mx-12 mt-2'>
                     <Input
-                        onChange={(e) => handleChange('noofdays', e.target.value)}
-                        type="number"
+                        onChange={(e) => {
+                            const value = e.target.value;
+                            if (!isNaN(value) && value >= 0) { // Allow only positive numbers
+                                handleChange('noofdays', value);
+                            }
+                        }}
+                        type="text"
                         placeholder="Enter number of days"
                     />
+                    </div>
                 </div>
                 <div>
-                    <h2 className='mt-10 text-xl font-medium'>What is your budget?</h2>
+                    <h2 className='mt-6 text-2xl font-semibold text-gray-900 mx-12'>What is your Budget?</h2>
                     <div className='grid grid-cols-3 gap-5 mt-5'>
                         {SelectBudgetOptions.map((item, index) => (
                             <div
                                 key={index}
                                 onClick={() => handleChange('budget', item.title)}
-                                className={`p-4 border rounded-lg hover:shadow-lg cursor-pointer ${form?.budget === item.title ? 'shadow-lg border-black' : ''}`}>
+                                className={`mx-12 p-4 border-2 rounded-lg hover:shadow-lg hover:border-[#2A9D8F] cursor-pointer ${form?.budget === item.title ? 'shadow-lg border-black' : ''}`}>
                                 <h2 className='text-3xl'>{item.icon}</h2>
                                 <h2 className='font-bold text-lg'>{item.title}</h2>
                                 <h2 className='text-sm text-gray-500'>{item.desc}</h2>
@@ -154,13 +182,13 @@ function CreateTrip() {
                     </div>
                 </div>
                 <div>
-                    <h2 className='mt-10 text-xl font-medium'>Number of travelers?</h2>
-                    <div className='grid grid-cols-3 gap-5 mt-5'>
+                    <h2 className='mt-6 text-2xl font-semibold text-gray-900 mx-12'>Number of Travelers?</h2>
+                    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 mt-5'>
                         {SelectNoOfPersons.map((item, index) => (
                             <div
                                 key={index}
                                 onClick={() => handleChange('traveler', item.title)}
-                                className={`p-4 border rounded-lg hover:shadow-lg cursor-pointer ${form?.traveler === item.title ? 'shadow-lg border-black' : ''}`}>
+                                className={`mx-12 p-4 border rounded-lg hover:shadow-lg hover:border-[#2A9D8F] cursor-pointer ${form?.traveler === item.title ? 'shadow-lg border-black' : ''}`}>
                                 <h2 className='text-3xl'>{item.icon}</h2>
                                 <h2 className='font-bold text-lg'>{item.title}</h2>
                                 <h2 className='text-sm text-gray-500'>{item.desc}</h2>
@@ -168,12 +196,23 @@ function CreateTrip() {
                         ))}
                     </div>
                 </div>
-                <div className='mt-10 flex justify-center items-center'>
-                    <Button disabled={loading} onClick={checkPeople}>
-                        {loading ? <AiOutlineLoading3Quarters className='w-7 h-7 animate-spin' />
-                            : 'Generate My Trip'}</Button>
+                <div className='mt-10 flex justify-center items-center'>                    
+                        <Button className='bg-[#2A9D8F] text-white text-xl px-6 py-4 rounded-full hover:bg-[#248277] transition-colors' disabled={loading} onClick={checkPeople}>
+                            {loading ? (
+                                <div className="flex items-center space-x-2">
+                                    <AiOutlineLoading3Quarters className="w-7 h-7 animate-spin" />
+                                    <span>I am generating your trips...</span>
+                                    </div>
+                            ) : (
+                                'Generate My Trip'
+                            )}
+                        </Button>
                 </div>
             </div>
+        </div>
+
+
+
 
             <Dialog open={open}>
                 {/* <DialogTrigger>Open</DialogTrigger> */}

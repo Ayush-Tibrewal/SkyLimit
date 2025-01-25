@@ -25,7 +25,7 @@ function PlaceCardItem({ place }) {
   }
   return (
     <Link to={'https://www.google.com/maps/search/?api=1&query=' + place?.name} target='_blank'>
-      <div className='border rounded-xl p-3 mt-2 flex gap-5 hover:scale-105 transition-all hover:shadow-md cursor-pointer'>
+      <div className='border rounded-xl shadow-md p-3 mt-2 flex gap-5 hover:scale-105 transition-all hover:shadow-md cursor-pointer'>
 
         {photoUrl ? (
           <img
@@ -36,9 +36,9 @@ function PlaceCardItem({ place }) {
         ) : (
           <div className="w-[150px] h-[150px] rounded-xl object-cover bg-gray-300 animate-pulse"></div> // Skeleton for image
         )}            <div>
-          <h2 className='font-bold text-lg'>{place.name}</h2>
-          <p className='text-sm text-gray-400'>{place.details}</p>
-          <h2 className='mt-2'>{place.pricing}</h2>
+          <h2 className='font-bold text-[#2A9D8F] text-xl'>{place.name}</h2>
+          <p className='text-md text-gray-600'>{place.details}</p>
+          <h2 className='mt-2 text-[#2A9D8F] text-md'>Price: {place.pricing}</h2>
           {/* <FaLocationDot /> */}
         </div>
       </div>
