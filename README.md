@@ -50,5 +50,7 @@ Love the project? Feel free to fork, contribute, and submit a pull request!
 ## 📜 License  
 **MIT License** – Open source and free to modify.  
 
-💡 **Ready to plan your next adventure? Give TravelAI a try!** 🌎✨  
+💡 **Ready to plan your next adventure? Give TravelAI a try!** 🌎✨ 
+
+Thank you
 
