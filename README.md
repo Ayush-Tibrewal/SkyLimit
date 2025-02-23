@@ -1,4 +1,4 @@
-# 🌍 TravelAI – Your Smart Travel Companion ✈️  
+# 🌍 TravelAI – Your Smart Travel Companion : DUHACKS4.0 ✈️  
 
 🚀 **Plan. Explore. Experience.** TravelAI helps you craft the perfect itinerary based on your budget, destination, and trip duration. Powered by **React, Firebase, Tailwind CSS, and Gemini AI**, it brings you a seamless travel planning experience like never before!  
 
